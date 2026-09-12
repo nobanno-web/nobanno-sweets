@@ -1,0 +1,132 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+enum Role {
+  ADMIN
+  EDITOR
+  CONTRIBUTOR
+}
+
+model User {
+  id                 String        @id @default(cuid())
+  name               String
+  email              String        @unique
+  passwordHash       String
+  role               Role          @default(CONTRIBUTOR)
+  mustChangePassword Boolean       @default(true)
+  isActive           Boolean       @default(true)
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+  activityLogs       ActivityLog[]
+}
+
+model ActivityLog {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  action     String   // e.g. "product:create", "member:role_change"
+  targetType String   // e.g. "Product", "User"
+  targetId   String?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+
+  @@index([userId])
+  @@index([createdAt])
+}
+
+model Product {
+  id           String   @id @default(cuid())
+  name         String
+  slug         String   @unique
+  description  String
+  imageUrl     String
+  price        Int      // in BDT
+  isBestseller Boolean  @default(false)
+  isSeasonal   Boolean  @default(false)
+  isFeatured   Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model HeroSlide {
+  id        String   @id @default(cuid())
+  imageUrl  String
+  headline  String
+  subtext   String
+  ctaLabel  String
+  ctaHref   String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model GalleryImage {
+  id        String   @id @default(cuid())
+  imageUrl  String
+  altText   String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}
+
+model Location {
+  id           String   @id @default(cuid())
+  name         String
+  address      String
+  phone        String
+  hours        String
+  mapEmbedUrl  String?
+  latitude     Float
+  longitude    Float
+  isPrimary    Boolean  @default(false) // powers "Main Branch" label in nav
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model StoryBlock {
+  id        String   @id @default(cuid())
+  eyebrow   String
+  heading   String
+  paragraph String
+  imageUrl  String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ShopStat {
+  id    String @id @default(cuid())
+  label String // e.g. "Varieties"
+  value String // e.g. "100+"
+  order Int    @default(0)
+}
+
+// Single-row table: always exactly one record, managed via the
+// site-settings feature. Enforce "singleton" at the service layer
+// (findFirst / upsert against a known id), not via schema constraints.
+model SiteSettings {
+  id                   String   @id @default(cuid())
+  facebookUrl          String?
+  instagramUrl         String?
+  youtubeUrl           String?
+  welcomeModalEnabled  Boolean  @default(false)
+  welcomeModalImageUrl String?
+  welcomeModalAltText  String?
+  ownerName            String?
+  ownerRole            String?
+  ownerPhotoUrl        String?
+  ownerBio             String?
+  updatedAt            DateTime @updatedAt
+}
