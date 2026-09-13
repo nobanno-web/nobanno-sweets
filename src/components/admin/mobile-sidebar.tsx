@@ -3,53 +3,28 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { Menu } from "lucide-react";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import {
-  LayoutDashboard,
-  Package,
-  Image as ImageIcon,
-  GalleryHorizontal,
-  MapPin,
-  BookOpen,
-  Settings,
-  Users,
-  ScrollText,
-} from "lucide-react";
-
-const navItems = [
-  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { label: "Products", href: "/admin/products", icon: Package },
-  { label: "Hero Slides", href: "/admin/hero-slides", icon: ImageIcon },
-  { label: "Gallery", href: "/admin/gallery", icon: GalleryHorizontal },
-  { label: "Locations", href: "/admin/locations", icon: MapPin },
-  { label: "Story", href: "/admin/story", icon: BookOpen },
-  { label: "Site Settings", href: "/admin/settings", icon: Settings },
-  { label: "Members", href: "/admin/members", icon: Users },
-  { label: "Activity Log", href: "/admin/activity-log", icon: ScrollText },
-];
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { getVisibleNavItems } from "./nav-items";
 
 export function MobileSidebar() {
   const pathname = usePathname();
+  const { data: session } = useSession();
+  const isAdmin = session?.user?.role === "ADMIN";
+  const visibleItems = getVisibleNavItems(isAdmin);
   const [open, setOpen] = useState(false);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger
-  render={
-    <button
-      className="md:hidden p-2 rounded-lg hover:bg-accent/10"
-      aria-label="Open menu"
-    />
-  }
->
-  <Menu className="h-5 w-5" />
-</SheetTrigger>
+        render={
+          <button className="md:hidden p-2 rounded-lg hover:bg-accent/10" aria-label="Open menu" />
+        }
+      >
+        <Menu className="h-5 w-5" />
+      </SheetTrigger>
       <SheetContent side="left" className="w-64 p-0">
         <div className="h-16 flex items-center px-5 border-b border-border">
           <span className="font-heading font-bold text-lg text-primary">
@@ -57,7 +32,7 @@ export function MobileSidebar() {
           </span>
         </div>
         <nav className="py-4 px-3 space-y-1">
-          {navItems.map((item) => {
+          {visibleItems.map((item) => {
             const isActive = pathname === item.href;
             const Icon = item.icon;
             return (

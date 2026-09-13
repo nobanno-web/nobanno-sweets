@@ -3,32 +3,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  LayoutDashboard,
-  Package,
-  Image as ImageIcon,
-  GalleryHorizontal,
-  MapPin,
-  BookOpen,
-  Settings,
-  Users,
-  ScrollText,
-} from "lucide-react";
-
-const navItems = [
-  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { label: "Products", href: "/admin/products", icon: Package },
-  { label: "Hero Slides", href: "/admin/hero-slides", icon: ImageIcon },
-  { label: "Gallery", href: "/admin/gallery", icon: GalleryHorizontal },
-  { label: "Locations", href: "/admin/locations", icon: MapPin },
-  { label: "Story", href: "/admin/story", icon: BookOpen },
-  { label: "Site Settings", href: "/admin/settings", icon: Settings },
-  { label: "Members", href: "/admin/members", icon: Users },
-  { label: "Activity Log", href: "/admin/activity-log", icon: ScrollText },
-];
+import { useSession } from "next-auth/react";
+import { getVisibleNavItems } from "./nav-items";
 
 export function AdminSidebar() {
   const pathname = usePathname();
+  const { data: session } = useSession();
+  const isAdmin = session?.user?.role === "ADMIN";
+  const visibleItems = getVisibleNavItems(isAdmin);
 
   return (
     <aside className="hidden md:flex md:flex-col w-60 shrink-0 border-r border-border bg-card h-screen sticky top-0">
@@ -39,7 +21,7 @@ export function AdminSidebar() {
       </div>
 
       <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-1">
-        {navItems.map((item) => {
+        {visibleItems.map((item) => {
           const isActive = pathname === item.href;
           const Icon = item.icon;
           return (
