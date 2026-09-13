@@ -1,0 +1,83 @@
+// src/components/admin/mobile-sidebar.tsx
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { Menu } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import {
+  LayoutDashboard,
+  Package,
+  Image as ImageIcon,
+  GalleryHorizontal,
+  MapPin,
+  BookOpen,
+  Settings,
+  Users,
+  ScrollText,
+} from "lucide-react";
+
+const navItems = [
+  { label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { label: "Products", href: "/admin/products", icon: Package },
+  { label: "Hero Slides", href: "/admin/hero-slides", icon: ImageIcon },
+  { label: "Gallery", href: "/admin/gallery", icon: GalleryHorizontal },
+  { label: "Locations", href: "/admin/locations", icon: MapPin },
+  { label: "Story", href: "/admin/story", icon: BookOpen },
+  { label: "Site Settings", href: "/admin/settings", icon: Settings },
+  { label: "Members", href: "/admin/members", icon: Users },
+  { label: "Activity Log", href: "/admin/activity-log", icon: ScrollText },
+];
+
+export function MobileSidebar() {
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger
+  render={
+    <button
+      className="md:hidden p-2 rounded-lg hover:bg-accent/10"
+      aria-label="Open menu"
+    />
+  }
+>
+  <Menu className="h-5 w-5" />
+</SheetTrigger>
+      <SheetContent side="left" className="w-64 p-0">
+        <div className="h-16 flex items-center px-5 border-b border-border">
+          <span className="font-heading font-bold text-lg text-primary">
+            Nabanno Admin
+          </span>
+        </div>
+        <nav className="py-4 px-3 space-y-1">
+          {navItems.map((item) => {
+            const isActive = pathname === item.href;
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setOpen(false)}
+                className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  isActive
+                    ? "bg-primary/10 text-primary"
+                    : "text-foreground/70 hover:bg-accent/10 hover:text-foreground"
+                }`}
+              >
+                <Icon className="h-4 w-4 shrink-0" />
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
+      </SheetContent>
+    </Sheet>
+  );
+}

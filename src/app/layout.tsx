@@ -1,13 +1,10 @@
 // src/app/layout.tsx
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
+import { Toaster } from "sonner";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Nav } from "@/components/nav";
-import { Footer } from "@/components/footer";
-import { WelcomeModal } from "@/components/welcome-modal";
-import { ScrollToTop } from "@/components/scroll-to-top";
-import { Toaster } from "sonner";
+import { SessionProvider } from "@/components/session-provider";
 
 const playfair = Playfair_Display({
   variable: "--font-heading",
@@ -23,14 +20,14 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Nabanno Sweets | Traditional Bengali Mishti in [City]",
+    default: "Nabanno Sweets | Traditional Bengali Mishti in Gazipur",
     template: "%s | Nabanno Sweets",
   },
   description:
     "Handcrafted Bengali sweets made fresh daily — sandesh, rosogolla, and traditional mishti at Nabanno Sweets.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
@@ -38,14 +35,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col font-body">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Nav />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <WelcomeModal />
-          <ScrollToTop />
+        <SessionProvider>
+<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {children}
           <Toaster richColors position="top-center" />
         </ThemeProvider>
+        </SessionProvider>
+        
       </body>
     </html>
   );
