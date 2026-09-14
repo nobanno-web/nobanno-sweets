@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { ImageUploadField } from "@/components/admin/image-upload-field";
 import { updateStoryBlockSchema } from "../validators/story-block.schema";
 import { updateStoryBlockAction } from "../actions/story-block.action";
+import { useRouter } from "next/navigation";
 import type { StoryBlock } from "@/generated/prisma/client";
 
 export function EditStoryBlockForm({
@@ -19,6 +20,7 @@ export function EditStoryBlockForm({
   block: StoryBlock;
   onSuccess: () => void;
 }) {
+  const router = useRouter();
   const { form, action, handleSubmitWithAction } = useHookFormAction(
     updateStoryBlockAction,
     zodResolver(updateStoryBlockSchema),
@@ -35,6 +37,7 @@ export function EditStoryBlockForm({
       actionProps: {
         onSuccess: () => {
           toast.success("Story block updated");
+          router.refresh();
           onSuccess();
         },
         onError: ({ error }) => toast.error(error.serverError ?? "Something went wrong"),

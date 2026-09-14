@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { updateMemberRoleAction, setMemberActiveAction } from "../actions/member.action";
+import { useRouter } from "next/navigation";
 import type { Role } from "@/generated/prisma/client";
 
 type Member = {
@@ -25,15 +26,22 @@ type Member = {
 };
 
 export function MembersTable({ members }: { members: Member[] }) {
+  const router = useRouter();
   const { data: session } = useSession();
 
   const roleAction = useAction(updateMemberRoleAction, {
-    onSuccess: () => toast.success("Role updated"),
+    onSuccess: () => {
+      toast.success("Role updated");
+      router.refresh();
+    },
     onError: ({ error }) => toast.error(error.serverError ?? "Failed to update role"),
   });
 
   const activeAction = useAction(setMemberActiveAction, {
-    onSuccess: () => toast.success("Member updated"),
+    onSuccess: () => {
+      toast.success("Member updated");
+      router.refresh();
+    },
     onError: ({ error }) => toast.error(error.serverError ?? "Failed to update member"),
   });
 

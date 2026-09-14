@@ -11,8 +11,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ImageUploadField } from "@/components/admin/image-upload-field";
 import { createProductSchema } from "../validators/product.schema";
 import { createProductAction } from "../actions/product.action";
+import { useRouter } from "next/navigation";
 
 export function CreateProductForm({ onSuccess }: { onSuccess: () => void }) {
+  const router = useRouter();
   const { form, action, handleSubmitWithAction } = useHookFormAction(
     createProductAction,
     zodResolver(createProductSchema),
@@ -32,6 +34,7 @@ export function CreateProductForm({ onSuccess }: { onSuccess: () => void }) {
         onSuccess: () => {
           toast.success("Product created");
           onSuccess();
+          router.refresh();
         },
         onError: ({ error }) => {
           toast.error(error.serverError ?? "Something went wrong");

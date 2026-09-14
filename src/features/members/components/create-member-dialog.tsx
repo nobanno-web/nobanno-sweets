@@ -19,8 +19,10 @@ import {
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { createMemberSchema } from "../validators/member.schema";
 import { createMemberAction } from "../actions/member.action";
+import { useRouter } from "next/navigation";
 
 export function CreateMemberDialog() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [created, setCreated] = useState<{ email: string; tempPassword: string } | null>(null);
   const [copied, setCopied] = useState(false);
@@ -35,6 +37,7 @@ export function CreateMemberDialog() {
       actionProps: {
         onSuccess: ({ data }) => {
           if (data) {
+            router.refresh();
             setCreated({ email: data.email, tempPassword: data.tempPassword });
             form.reset();
           }

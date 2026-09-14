@@ -8,8 +8,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { createLocationSchema } from "../validators/location.schema";
 import { createLocationAction } from "../actions/location.action";
+import { useRouter } from "next/navigation";
 
 export function CreateLocationForm({ onSuccess }: { onSuccess: () => void }) {
+  const router = useRouter();
   const { form, action, handleSubmitWithAction } = useHookFormAction(
     createLocationAction,
     zodResolver(createLocationSchema),
@@ -23,6 +25,7 @@ export function CreateLocationForm({ onSuccess }: { onSuccess: () => void }) {
       actionProps: {
         onSuccess: () => {
           toast.success("Location added");
+          router.refresh();
           onSuccess();
         },
         onError: ({ error }) => toast.error(error.serverError ?? "Something went wrong"),

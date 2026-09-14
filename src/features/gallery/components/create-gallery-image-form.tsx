@@ -9,9 +9,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ImageUploadField } from "@/components/admin/image-upload-field";
 import { createGalleryImageSchema } from "../validators/gallery.schema";
-import { createGalleryImageAction } from "../actions/gallery.action";
+import { createGalleryImageAction } from "../actions/gallery.action"; 
+import { useRouter } from "next/navigation";
 
 export function CreateGalleryImageForm({ onSuccess }: { onSuccess: () => void }) {
+  const router = useRouter();
   const { form, action, handleSubmitWithAction } = useHookFormAction(
     createGalleryImageAction,
     zodResolver(createGalleryImageSchema),
@@ -22,6 +24,7 @@ export function CreateGalleryImageForm({ onSuccess }: { onSuccess: () => void })
       actionProps: {
         onSuccess: () => {
           toast.success("Photo added");
+          router.refresh();
           onSuccess();
         },
         onError: ({ error }) => {

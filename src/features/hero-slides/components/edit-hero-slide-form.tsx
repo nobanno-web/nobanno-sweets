@@ -11,6 +11,7 @@ import { ImageUploadField } from "@/components/admin/image-upload-field";
 import { updateHeroSlideSchema } from "../validators/hero-slide.schema";
 import { updateHeroSlideAction } from "../actions/hero-slide.action";
 import type { HeroSlide } from "@/generated/prisma/client";
+import { useRouter } from "next/navigation";
 
 export function EditHeroSlideForm({
   slide,
@@ -19,6 +20,7 @@ export function EditHeroSlideForm({
   slide: HeroSlide;
   onSuccess: () => void;
 }) {
+  const router = useRouter();
   const { form, action, handleSubmitWithAction } = useHookFormAction(
     updateHeroSlideAction,
     zodResolver(updateHeroSlideSchema),
@@ -36,6 +38,7 @@ export function EditHeroSlideForm({
       actionProps: {
         onSuccess: () => {
           toast.success("Slide updated");
+          router.refresh();
           onSuccess();
         },
         onError: ({ error }) => toast.error(error.serverError ?? "Something went wrong"),

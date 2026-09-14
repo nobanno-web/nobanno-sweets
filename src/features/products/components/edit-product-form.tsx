@@ -12,6 +12,7 @@ import { ImageUploadField } from "@/components/admin/image-upload-field";
 import { updateProductSchema } from "../validators/product.schema";
 import { updateProductAction } from "../actions/product.action";
 import type { Product } from "@/generated/prisma/client";
+import { useRouter } from "next/navigation";
 
 export function EditProductForm({
   product,
@@ -20,6 +21,7 @@ export function EditProductForm({
   product: Product;
   onSuccess: () => void;
 }) {
+  const router = useRouter();
   const { form, action, handleSubmitWithAction } = useHookFormAction(
     updateProductAction,
     zodResolver(updateProductSchema),
@@ -40,6 +42,7 @@ export function EditProductForm({
         onSuccess: () => {
           toast.success("Product updated");
           onSuccess();
+          router.refresh();
         },
         onError: ({ error }) => {
           toast.error(error.serverError ?? "Something went wrong");

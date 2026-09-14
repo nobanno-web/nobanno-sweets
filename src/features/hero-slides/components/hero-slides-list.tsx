@@ -18,6 +18,7 @@ import { can } from "@/lib/permissions";
 import { SortableSlideCard } from "./sortable-slide-card";
 import { deleteHeroSlideAction, reorderHeroSlidesAction } from "../actions/hero-slide.action";
 import type { HeroSlide } from "@/generated/prisma/client";
+import { useRouter } from "next/navigation";
 
 export function HeroSlidesList({ slides }: { slides: HeroSlide[] }) {
   const { data: session } = useSession();
@@ -25,15 +26,21 @@ export function HeroSlidesList({ slides }: { slides: HeroSlide[] }) {
   const canUpdate = role ? can(role, "content:update") : false;
   const canDelete = role ? can(role, "content:delete") : false;
 
+  const router = useRouter();
+
   const [items, setItems] = useState(slides);
   const sensors = useSensors(useSensor(PointerSensor));
 
   const deleteAction = useAction(deleteHeroSlideAction, {
-    onSuccess: () => toast.success("Slide deleted"),
+    onSuccess: () => {
+      toast.success("Slide deleted");
+      router.refresh();
+    },
     onError: ({ error }) => toast.error(error.serverError ?? "Failed to delete"),
   });
 
   const reorderAction = useAction(reorderHeroSlidesAction, {
+    onSuccess: () => router.refresh(),
     onError: ({ error }) => toast.error(error.serverError ?? "Failed to save order"),
   });
 

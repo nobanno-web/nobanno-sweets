@@ -9,8 +9,10 @@ import { Label } from "@/components/ui/label";
 import { ImageUploadField } from "@/components/admin/image-upload-field";
 import { createHeroSlideSchema } from "../validators/hero-slide.schema";
 import { createHeroSlideAction } from "../actions/hero-slide.action";
+import { useRouter } from "next/navigation";
 
 export function CreateHeroSlideForm({ onSuccess }: { onSuccess: () => void }) {
+  const router = useRouter();
   const { form, action, handleSubmitWithAction } = useHookFormAction(
     createHeroSlideAction,
     zodResolver(createHeroSlideSchema),
@@ -21,6 +23,7 @@ export function CreateHeroSlideForm({ onSuccess }: { onSuccess: () => void }) {
       actionProps: {
         onSuccess: () => {
           toast.success("Slide created");
+          router.refresh();
           onSuccess();
         },
         onError: ({ error }) => toast.error(error.serverError ?? "Something went wrong"),

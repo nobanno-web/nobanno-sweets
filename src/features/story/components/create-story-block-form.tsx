@@ -9,8 +9,10 @@ import { Label } from "@/components/ui/label";
 import { ImageUploadField } from "@/components/admin/image-upload-field";
 import { createStoryBlockSchema } from "../validators/story-block.schema";
 import { createStoryBlockAction } from "../actions/story-block.action";
+import { useRouter } from "next/navigation";
 
 export function CreateStoryBlockForm({ onSuccess }: { onSuccess: () => void }) {
+  const router = useRouter();
   const { form, action, handleSubmitWithAction } = useHookFormAction(
     createStoryBlockAction,
     zodResolver(createStoryBlockSchema),
@@ -21,6 +23,7 @@ export function CreateStoryBlockForm({ onSuccess }: { onSuccess: () => void }) {
       actionProps: {
         onSuccess: () => {
           toast.success("Story block added");
+          router.refresh();
           onSuccess();
         },
         onError: ({ error }) => toast.error(error.serverError ?? "Something went wrong"),

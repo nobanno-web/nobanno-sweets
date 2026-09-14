@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { updateLocationSchema } from "../validators/location.schema";
 import { updateLocationAction } from "../actions/location.action";
+import { useRouter } from "next/navigation";
 import type { Location } from "@/generated/prisma/client";
 
 export function EditLocationForm({
@@ -18,6 +19,7 @@ export function EditLocationForm({
   location: Location;
   onSuccess: () => void;
 }) {
+  const router = useRouter();
   const { form, action, handleSubmitWithAction } = useHookFormAction(
     updateLocationAction,
     zodResolver(updateLocationSchema),
@@ -37,6 +39,7 @@ export function EditLocationForm({
       actionProps: {
         onSuccess: () => {
           toast.success("Location updated");
+          router.refresh();
           onSuccess();
         },
         onError: ({ error }) => toast.error(error.serverError ?? "Something went wrong"),

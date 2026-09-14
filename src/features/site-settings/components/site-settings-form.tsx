@@ -10,9 +10,11 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ImageUploadField } from "@/components/admin/image-upload-field";
 import { updateSiteSettingsSchema } from "../validators/site-settings.schema";
 import { updateSiteSettingsAction } from "../actions/site-settings.action";
+import { useRouter } from "next/navigation";
 import type { SiteSettings } from "@/generated/prisma/client";
 
 export function SiteSettingsForm({ settings }: { settings: SiteSettings | null }) {
+  const router = useRouter();
   const { form, action, handleSubmitWithAction } = useHookFormAction(
     updateSiteSettingsAction,
     zodResolver(updateSiteSettingsSchema),
@@ -32,7 +34,10 @@ export function SiteSettingsForm({ settings }: { settings: SiteSettings | null }
         },
       },
       actionProps: {
-        onSuccess: () => toast.success("Settings saved"),
+        onSuccess: () => {
+          toast.success("Settings saved");
+          router.refresh();
+        },
         onError: ({ error }) => toast.error(error.serverError ?? "Something went wrong"),
       },
     },

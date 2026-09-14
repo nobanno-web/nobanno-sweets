@@ -13,8 +13,10 @@ import {
   deleteShopStatAction,
 } from "../actions/shop-stat.action";
 import type { ShopStat } from "@/generated/prisma/client";
+import { useRouter } from "next/navigation";
 
 export function ShopStatsManager({ stats }: { stats: ShopStat[] }) {
+  const router = useRouter();
   const { data: session } = useSession();
   const role = session?.user?.role as "ADMIN" | "EDITOR" | "CONTRIBUTOR" | undefined;
   const canWrite = role ? can(role, "content:update") : false;
@@ -26,6 +28,7 @@ export function ShopStatsManager({ stats }: { stats: ShopStat[] }) {
   const createAction = useAction(createShopStatAction, {
     onSuccess: () => {
       toast.success("Stat added");
+      router.refresh();
       setAdding(false);
       setDraft({ label: "", value: "" });
     },
@@ -35,13 +38,17 @@ export function ShopStatsManager({ stats }: { stats: ShopStat[] }) {
   const updateAction = useAction(updateShopStatAction, {
     onSuccess: () => {
       toast.success("Stat updated");
+      router.refresh();
       setEditingId(null);
     },
     onError: ({ error }) => toast.error(error.serverError ?? "Failed to update"),
   });
 
   const deleteAction = useAction(deleteShopStatAction, {
-    onSuccess: () => toast.success("Stat deleted"),
+    onSuccess: () => {
+      toast.success("Stat deleted");
+      router.refresh();
+    },
     onError: ({ error }) => toast.error(error.serverError ?? "Failed to delete"),
   });
 

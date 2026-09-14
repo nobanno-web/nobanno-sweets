@@ -22,6 +22,7 @@ import { can } from "@/lib/permissions";
 import { SortableGalleryTile } from "./sortable-gallery-tile";
 import { deleteGalleryImageAction, reorderGalleryImagesAction } from "../actions/gallery.action";
 import type { GalleryImage } from "@/generated/prisma/client";
+import { useRouter } from "next/navigation";
 
 export function GalleryGrid({ images }: { images: GalleryImage[] }) {
   const { data: session } = useSession();
@@ -31,13 +32,18 @@ export function GalleryGrid({ images }: { images: GalleryImage[] }) {
 
   const [items, setItems] = useState(images);
   const sensors = useSensors(useSensor(PointerSensor));
+  const router = useRouter();
 
   const deleteAction = useAction(deleteGalleryImageAction, {
-    onSuccess: () => toast.success("Photo deleted"),
+     onSuccess: () => {
+    toast.success("Photo deleted");
+    router.refresh();
+  },
     onError: ({ error }) => toast.error(error.serverError ?? "Failed to delete"),
   });
 
   const reorderAction = useAction(reorderGalleryImagesAction, {
+     onSuccess: () => router.refresh(),
     onError: ({ error }) => toast.error(error.serverError ?? "Failed to save order"),
   });
 

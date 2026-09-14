@@ -2,6 +2,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
@@ -12,6 +13,7 @@ import { deleteProductAction } from "../actions/product.action";
 import type { Product } from "@/generated/prisma/client";
 
 export function ProductsTable({ products }: { products: Product[] }) {
+  const router = useRouter();
   const { data: session } = useSession();
   const role = session?.user?.role as "ADMIN" | "EDITOR" | "CONTRIBUTOR" | undefined;
 
@@ -19,7 +21,10 @@ export function ProductsTable({ products }: { products: Product[] }) {
   const canDelete = role ? can(role, "content:delete") : false;
 
   const deleteAction = useAction(deleteProductAction, {
-    onSuccess: () => toast.success("Product deleted"),
+    onSuccess: () => {
+      toast.success("Product deleted");
+      router.refresh();
+    },
     onError: ({ error }) => toast.error(error.serverError ?? "Failed to delete"),
   });
 
@@ -28,6 +33,8 @@ export function ProductsTable({ products }: { products: Product[] }) {
       deleteAction.execute({ id });
     }
   }
+
+
 
   return (
     <div className="border border-border rounded-2xl overflow-hidden">

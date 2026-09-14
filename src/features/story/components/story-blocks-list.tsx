@@ -18,8 +18,10 @@ import { can } from "@/lib/permissions";
 import { SortableStoryBlockCard } from "./sortable-story-block-card";
 import { deleteStoryBlockAction, reorderStoryBlocksAction } from "../actions/story-block.action";
 import type { StoryBlock } from "@/generated/prisma/client";
+import { useRouter } from "next/navigation";
 
 export function StoryBlocksList({ blocks }: { blocks: StoryBlock[] }) {
+  const router = useRouter();
   const { data: session } = useSession();
   const role = session?.user?.role as "ADMIN" | "EDITOR" | "CONTRIBUTOR" | undefined;
   const canUpdate = role ? can(role, "content:update") : false;
@@ -29,11 +31,18 @@ export function StoryBlocksList({ blocks }: { blocks: StoryBlock[] }) {
   const sensors = useSensors(useSensor(PointerSensor));
 
   const deleteAction = useAction(deleteStoryBlockAction, {
-    onSuccess: () => toast.success("Block deleted"),
+    onSuccess: () => {
+      toast.success("Block deleted");
+      router.refresh();
+    },
     onError: ({ error }) => toast.error(error.serverError ?? "Failed to delete"),
   });
 
   const reorderAction = useAction(reorderStoryBlocksAction, {
+    onSuccess: () => {
+      toast.success("Order saved");
+      router.refresh();
+    },
     onError: ({ error }) => toast.error(error.serverError ?? "Failed to save order"),
   });
 

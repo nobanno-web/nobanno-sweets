@@ -8,21 +8,29 @@ import { Trash2, Star } from "lucide-react";
 import { can } from "@/lib/permissions";
 import { EditLocationDialog } from "./edit-location-dialog";
 import { deleteLocationAction, setPrimaryLocationAction } from "../actions/location.action";
+import { useRouter } from "next/navigation";
 import type { Location } from "@/generated/prisma/client";
 
 export function LocationsTable({ locations }: { locations: Location[] }) {
   const { data: session } = useSession();
+  const router = useRouter();
   const role = session?.user?.role as "ADMIN" | "EDITOR" | "CONTRIBUTOR" | undefined;
   const canUpdate = role ? can(role, "content:update") : false;
   const canDelete = role ? can(role, "content:delete") : false;
 
   const deleteAction = useAction(deleteLocationAction, {
-    onSuccess: () => toast.success("Location deleted"),
+    onSuccess: () => {
+    toast.success("Location deleted");
+    router.refresh();
+  },
     onError: ({ error }) => toast.error(error.serverError ?? "Failed to delete"),
   });
 
   const primaryAction = useAction(setPrimaryLocationAction, {
-    onSuccess: () => toast.success("Main branch updated"),
+    onSuccess: () => {
+    toast.success("Main branch updated");
+    router.refresh();
+  },
     onError: ({ error }) => toast.error(error.serverError ?? "Failed to update"),
   });
 
