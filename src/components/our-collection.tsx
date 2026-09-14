@@ -11,9 +11,9 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { products } from "@/lib/dummy-data";
+import type { Product } from "@/generated/prisma/client";
 
-export function OurCollection() {
+export function OurCollection({ products }: { products: Product[] }) {
   const autoplay = useRef(
     Autoplay({ delay: 3500, stopOnInteraction: true })
   );

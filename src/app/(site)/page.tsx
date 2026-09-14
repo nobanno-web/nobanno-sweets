@@ -1,21 +1,32 @@
-// src/app/page.tsx
-import { Hero } from "@/components/hero";
-import { Marquee } from "@/components/marquee";
+// src/app/(site)/page.tsx
+import { HeroCarousel } from "@/components/hero-carousel";
 import { OurCollection } from "@/components/our-collection";
 import { BestSellers } from "@/components/best-sellers";
-import { StoryTeaser } from "@/components/story-teaser";
 import { VisitUs } from "@/components/visit-us";
-import { HeroCarousel } from "@/components/hero-carousel";
+import { StoryTeaser } from "@/components/story-teaser";
+import { getAllHeroSlides } from "@/features/hero-slides/services/hero-slide.service";
+import { getAllProducts } from "@/features/products/services/product.service";
+import { getPrimaryLocationInfo } from "@/features/locations/services/location.service";
+import { getAllShopStats } from "@/features/site-settings/services/shop-stat.service";
 
-export default function HomePage() {
+export default async function HomePage() {
+  const [heroSlides, products, primaryLocation, shopStats] = await Promise.all([
+    getAllHeroSlides(),
+    getAllProducts(),
+    getPrimaryLocationInfo(),
+    getAllShopStats(),
+  ]);
+
+  const bestSellers = products.filter((p) => p.isBestseller);
+  const featuredProducts = products.filter((p) => p.isFeatured);
+
   return (
     <>
-      {/* <Hero /> */}
-      <HeroCarousel />
-      <OurCollection />
-      <BestSellers />
-      <VisitUs />
-      <StoryTeaser />
+      <HeroCarousel slides={heroSlides} />
+      <OurCollection products={featuredProducts} />
+      <BestSellers products={bestSellers} />
+      {primaryLocation && <VisitUs location={primaryLocation} />}
+      <StoryTeaser stats={shopStats} />
     </>
   );
 }

@@ -6,20 +6,20 @@ import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { heroSlides } from "@/lib/dummy-data";
+import type { HeroSlide } from "@/generated/prisma/client";
 
 const AUTOPLAY_MS = 5000;
 
-export function HeroCarousel() {
+export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
 
   const next = useCallback(() => {
-    setIndex((i) => (i + 1) % heroSlides.length);
+    setIndex((i) => (i + 1) % slides.length);
   }, []);
 
   const prev = useCallback(() => {
-    setIndex((i) => (i - 1 + heroSlides.length) % heroSlides.length);
+    setIndex((i) => (i - 1 + slides.length) % slides.length);
   }, []);
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export function HeroCarousel() {
     return () => clearInterval(timer);
   }, [next, paused]);
 
-  const slide = heroSlides[index];
+  const slide = slides[index];
 
   return (
     <section
@@ -98,7 +98,7 @@ export function HeroCarousel() {
 
       {/* Dots */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-        {heroSlides.map((s, i) => (
+        {slides.map((s, i) => (
           <button
             key={s.id}
             aria-label={`Go to slide ${i + 1}`}

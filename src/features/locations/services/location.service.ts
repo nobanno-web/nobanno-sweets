@@ -10,6 +10,7 @@ import {
   deleteLocation,
   clearAllPrimaryFlags,
   setLocationPrimary,
+  getPrimaryLocation,
 } from "@/features/locations/repositories/location.repo";
 
 type Role = "ADMIN" | "EDITOR" | "CONTRIBUTOR";
@@ -128,4 +129,8 @@ export async function makeLocationPrimary(actingUserId: string, role: Role, id: 
   });
 
   return existing;
+}
+
+export async function getPrimaryLocationInfo() {
+  return getPrimaryLocation();
 }

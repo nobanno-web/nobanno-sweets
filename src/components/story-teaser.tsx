@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CountUpStat } from "@/components/count-up-stat";
-import { shopStats } from "@/lib/dummy-data";
+import type { ShopStat } from "@/generated/prisma/client";
 
-export function StoryTeaser() {
+export function StoryTeaser({ stats }: { stats: ShopStat[] }) {
   return (
     <section className="bg-secondary text-secondary-foreground">
       <div className="mx-auto max-w-6xl px-4 py-16 md:py-24 flex flex-col md:flex-row items-center gap-10 md:gap-16">
         <div className="w-full md:w-1/2 flex items-center justify-center gap-4">
-          {shopStats.map((stat, i) => (
+          {stats.map((stat, i) => (
             <div key={stat.label} className="flex items-center gap-4">
               {i > 0 && <div className="h-10 w-px bg-secondary-foreground/30" />}
               <div className="bg-background text-foreground rounded-2xl border-2 border-foreground px-6 py-5 text-center">

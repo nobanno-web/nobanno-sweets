@@ -4,16 +4,16 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { galleryImages } from "@/lib/dummy-data";
+import type { GalleryImage } from "@/generated/prisma/client";
 
-export function GalleryGrid() {
+export function GalleryGrid({ images }: { images: GalleryImage[] }) {
   const [selected, setSelected] = useState<string | null>(null);
-  const selectedImage = galleryImages.find((img) => img.id === selected);
+  const selectedImage = images.find((img) => img.id === selected);
 
   return (
     <>
       <div className="columns-2 md:columns-3 gap-4 space-y-4">
-        {galleryImages.map((img) => (
+        {images.map((img) => (
           <button
             key={img.id}
             onClick={() => setSelected(img.id)}

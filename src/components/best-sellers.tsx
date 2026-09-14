@@ -5,9 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
-import { bestSellers } from "@/lib/dummy-data";
+import type { Product } from "@/generated/prisma/client";
 
-export function BestSellers() {
+export function BestSellers({ products }: { products: Product[] }) {
   return (
     <section id="best-sellers" className="bg-card/50 py-16 md:py-24">
       <div className="mx-auto max-w-6xl px-4">
@@ -21,7 +21,7 @@ export function BestSellers() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5">
-          {bestSellers.map((product, i) => (
+          {products.map((product, i) => (
             <motion.div
               key={product.id}
               initial={{ opacity: 0, y: 24 }}

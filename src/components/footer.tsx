@@ -2,29 +2,35 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SiFacebook, SiInstagram, SiYoutube } from "react-icons/si";
-import { storeLocation } from "@/lib/dummy-data";
+import type { SiteSettings, Location } from "@/generated/prisma/client";
 
 const footerLinks = [
   { label: "Home", href: "/" },
+  { label: "Products", href: "/products" },
   { label: "Menu", href: "/menu" },
   { label: "Our Story", href: "/story" },
   { label: "Gallery", href: "/gallery" },
-  { label: "Contact", href: "/contact" },
 ];
 
-export function Footer() {
+export function Footer({
+  settings,
+  location,
+}: {
+  settings: SiteSettings | null;
+  location: Location | null;
+}) {
   return (
-    <footer className="bg-foreground text-background">
-      <div className="mx-auto max-w-6xl px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+    <footer className="bg-foreground text-background pt-20 md:pt-24">
+      <div className="mx-auto max-w-6xl px-4 pb-14 grid grid-cols-1 md:grid-cols-4 gap-10">
         <div>
           <Image
             src="/logo-stacked.png"
             alt="Nabanno Sweets"
-            width={120}
-            height={120}
-            className="mb-3"
+            width={110}
+            height={110}
+            className="mb-4"
           />
-          <p className="text-background/70 text-sm max-w-xs">
+          <p className="text-background/70 text-sm max-w-xs leading-relaxed">
             Traditional Bengali mishti and snacks, handcrafted fresh every
             day.
           </p>
@@ -50,46 +56,79 @@ export function Footer() {
 
         <div>
           <h3 className="font-heading font-medium text-sm mb-3 text-background/90">
-            Contact
+            Visit Us
           </h3>
-          <p className="text-background/70 text-sm mb-2">
-            {storeLocation.address}
-          </p>
-          <a
-            href={`tel:${storeLocation.phone}`}
-            className="text-background/70 text-sm hover:text-background transition-colors block mb-4"
-          >
-            {storeLocation.phone}
-          </a>
+          {location ? (
+            <>
+              <p className="text-background/70 text-sm mb-2 leading-relaxed">
+                {location.address}
+              </p>
+              <a 
+                href={`tel:${location.phone}`}
+                className="text-background/70 text-sm hover:text-background transition-colors block mb-1"
+              >
+                {location.phone}
+              </a>
+              <p className="text-background/50 text-xs">{location.hours}</p>
+            </>
+          ) : (
+            <p className="text-background/50 text-sm">Details coming soon.</p>
+          )}
+        </div>
+
+        <div>
+          <h3 className="font-heading font-medium text-sm mb-3 text-background/90">
+            Follow Us
+          </h3>
           <div className="flex gap-3">
-            <a
-              href="#"
-              aria-label="Facebook"
-              className="p-2 rounded-full border border-background/30 hover:bg-background/10 transition-colors"
-            >
-              <SiFacebook className="h-4 w-4" />
-            </a>
-            <a
-              href="#"
-              aria-label="Instagram"
-              className="p-2 rounded-full border border-background/30 hover:bg-background/10 transition-colors"
-            >
-              <SiInstagram className="h-4 w-4" />
-            </a>
-            <a
-              href="#"
-              aria-label="YouTube"
-              className="p-2 rounded-full border border-background/30 hover:bg-background/10 transition-colors"
-            >
-              <SiYoutube className="h-4 w-4" />
-            </a>
+            {settings?.facebookUrl && (
+              <a
+                href={settings.facebookUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="p-2 rounded-full border border-background/30 hover:bg-background/10 hover:border-background/60 transition-colors"
+              >
+                <SiFacebook className="h-4 w-4" />
+              </a>
+            )}
+            {settings?.instagramUrl && (
+              <a 
+                href={settings.instagramUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="p-2 rounded-full border border-background/30 hover:bg-background/10 hover:border-background/60 transition-colors"
+              >
+                <SiInstagram className="h-4 w-4" />
+              </a>
+            )}
+            {settings?.youtubeUrl && (
+              <a 
+                href={settings.youtubeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+                className="p-2 rounded-full border border-background/30 hover:bg-background/10 hover:border-background/60 transition-colors"
+              >
+                <SiYoutube className="h-4 w-4" />
+              </a>
+            )}
           </div>
         </div>
       </div>
 
       <div className="border-t border-background/20">
-        <div className="mx-auto max-w-6xl px-4 py-4 text-center text-background/50 text-xs">
-          © {new Date().getFullYear()} Nabanno Sweets. All rights reserved.
+        <div className="mx-auto max-w-6xl px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-background/50 text-xs">
+          <span>© {new Date().getFullYear()} Nabanno Sweets. All rights reserved.</span>
+          <a
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-background/80 transition-colors"
+          >
+            Built by Shafiul Anam
+          </a>
         </div>
       </div>
     </footer>

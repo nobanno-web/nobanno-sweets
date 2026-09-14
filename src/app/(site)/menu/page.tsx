@@ -1,6 +1,7 @@
-// src/app/menu/page.tsx
+// src/app/(site)/menu/page.tsx
 import type { Metadata } from "next";
 import { MenuList } from "@/components/menu-list";
+import { getAllProducts } from "@/features/products/services/product.service";
 
 export const metadata: Metadata = {
   title: "Menu",
@@ -8,7 +9,9 @@ export const metadata: Metadata = {
     "Full menu of handcrafted Bengali sweets and snacks at Nabanno Sweets, Gazipur — prices and descriptions for every item.",
 };
 
-export default function MenuPage() {
+export default async function MenuPage() {
+  const products = await getAllProducts();
+
   return (
     <section className="mx-auto max-w-4xl px-4 py-16 md:py-24">
       <div className="text-center max-w-xl mx-auto mb-10 md:mb-14">
@@ -20,7 +23,7 @@ export default function MenuPage() {
         </p>
       </div>
 
-      <MenuList />
+      <MenuList products={products} />
     </section>
   );
 }

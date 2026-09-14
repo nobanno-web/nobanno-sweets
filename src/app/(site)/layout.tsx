@@ -3,14 +3,21 @@ import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { WelcomeModal } from "@/components/welcome-modal";
 import { ScrollToTop } from "@/components/scroll-to-top";
+import { getSettings } from "@/features/site-settings/services/site-settings.service";
+import { getPrimaryLocationInfo } from "@/features/locations/services/location.service";
 
-export default function SiteLayout({ children }: { children: React.ReactNode }) {
+export default async function SiteLayout({ children }: { children: React.ReactNode }) {
+  const [settings, primaryLocation] = await Promise.all([
+    getSettings(),
+    getPrimaryLocationInfo(),
+  ]);
+
   return (
     <>
-      <Nav />
+      <Nav settings={settings} location={primaryLocation} />
       <main className="flex-1">{children}</main>
-      <Footer />
-      <WelcomeModal />
+      <Footer settings={settings} location={primaryLocation} />
+      <WelcomeModal settings={settings} />
       <ScrollToTop />
     </>
   );

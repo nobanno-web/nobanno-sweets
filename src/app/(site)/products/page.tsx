@@ -1,6 +1,7 @@
-// src/app/products/page.tsx
+// src/app/(site)/products/page.tsx
 import type { Metadata } from "next";
 import { ProductsGrid } from "@/components/products-grid";
+import { getAllProducts } from "@/features/products/services/product.service";
 
 export const metadata: Metadata = {
   title: "Products",
@@ -8,7 +9,9 @@ export const metadata: Metadata = {
     "Browse our full range of handcrafted Bengali sweets and snacks at Nabanno Sweets, Gazipur.",
 };
 
-export default function ProductsPage() {
+export default async function ProductsPage() {
+  const products = await getAllProducts();
+
   return (
     <section className="mx-auto max-w-6xl px-4 py-16 md:py-24">
       <div className="text-center max-w-xl mx-auto mb-10 md:mb-14">
@@ -20,7 +23,7 @@ export default function ProductsPage() {
         </p>
       </div>
 
-      <ProductsGrid />
+      <ProductsGrid products={products} />
     </section>
   );
 }

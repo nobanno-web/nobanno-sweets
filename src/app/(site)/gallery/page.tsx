@@ -1,6 +1,7 @@
-// src/app/gallery/page.tsx
+// src/app/(site)/gallery/page.tsx
 import type { Metadata } from "next";
 import { GalleryGrid } from "@/components/gallery-grid";
+import { getAllGalleryImages } from "@/features/gallery/services/gallery.service";
 
 export const metadata: Metadata = {
   title: "Gallery",
@@ -8,7 +9,9 @@ export const metadata: Metadata = {
     "A look inside Nabanno Sweets, Gazipur — our shop, our kitchen, and the sweets we make fresh every day.",
 };
 
-export default function GalleryPage() {
+export default async function GalleryPage() {
+  const images = await getAllGalleryImages();
+
   return (
     <section className="mx-auto max-w-6xl px-4 py-16 md:py-24">
       <div className="text-center max-w-xl mx-auto mb-10 md:mb-14">
@@ -21,7 +24,7 @@ export default function GalleryPage() {
         </p>
       </div>
 
-      <GalleryGrid />
+      <GalleryGrid images={images} />
     </section>
   );
 }

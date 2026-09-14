@@ -21,12 +21,12 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { CallToOrder } from "@/components/call-to-order";
-import { products } from "@/lib/dummy-data";
+import type { Product } from "@/generated/prisma/client";
 
 const PER_PAGE = 6;
 type SortOption = "default" | "price-asc" | "price-desc";
 
-export function MenuList() {
+export function MenuList({ products }: { products: Product[] }) {
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState<SortOption>("default");
   const [page, setPage] = useState(1);
@@ -41,7 +41,7 @@ export function MenuList() {
     if (sort === "price-desc") list.sort((a, b) => b.price - a.price);
 
     return list;
-  }, [query, sort]);
+  }, [products, query, sort]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
   const currentPage = Math.min(page, totalPages);
@@ -62,7 +62,6 @@ export function MenuList() {
 
   return (
     <div>
-      {/* Controls */}
       <div className="flex flex-col sm:flex-row gap-3 mb-8">
         <div className="relative flex-1">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-primary" />
@@ -97,10 +96,11 @@ export function MenuList() {
         </Select>
       </div>
 
-      {/* List */}
       {paginated.length === 0 ? (
         <p className="text-center text-muted-foreground py-12">
-          No items found for &quot;{query}&quot;.
+          {products.length === 0
+            ? "Menu items coming soon."
+            : `No items found for "${query}".`}
         </p>
       ) : (
         <div className="border-t border-border">
@@ -114,6 +114,7 @@ export function MenuList() {
                   src={product.imageUrl}
                   alt={product.name}
                   fill
+                  sizes="64px"
                   className="object-cover"
                 />
               </div>
@@ -142,7 +143,6 @@ export function MenuList() {
         </div>
       )}
 
-      {/* Pagination */}
       {totalPages > 1 && (
         <Pagination className="mt-10">
           <PaginationContent>

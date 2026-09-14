@@ -15,11 +15,11 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { CallToOrder } from "@/components/call-to-order";
-import { products } from "@/lib/dummy-data";
+import type { Product } from "@/generated/prisma/client";
 
 const PER_PAGE = 6;
 
-export function ProductsGrid() {
+export function ProductsGrid({ products }: { products: Product[] }) {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
 

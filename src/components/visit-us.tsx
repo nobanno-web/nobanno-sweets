@@ -3,11 +3,10 @@
 
 import { motion } from "motion/react";
 import { MapPin, Phone, Clock } from "lucide-react";
-import { storeLocation } from "@/lib/dummy-data";
+import type { Location } from "@/generated/prisma/client";
 
-export function VisitUs() {
-    const mapSrc = `https://www.google.com/maps?q=${storeLocation.latitude},${storeLocation.longitude}&output=embed`;
-
+export function VisitUs({ location }: { location: Location }) {
+    const mapSrc = location.mapEmbedUrl || `https://www.google.com/maps?q=${location.latitude},${location.longitude}&output=embed`;
     return (
         <section
             id="visit-us"
@@ -33,33 +32,33 @@ export function VisitUs() {
                             className="absolute inset-0 w-full h-full border-0"
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
-                            title={`Map to ${storeLocation.name}`}
+                            title={`Map to ${location.name}`}
                         />
                     </div>
 
                     <div className="w-full md:w-1/2 bg-card p-6 md:p-8 flex flex-col justify-center gap-5">
                         <div className="flex items-start gap-3">
                             <MapPin className="h-5 w-5 mt-0.5 shrink-0 text-primary" />
-                            <p className="text-sm md:text-base">{storeLocation.address}</p>
+                            <p className="text-sm md:text-base">{location.address}</p>
                         </div>
 
                         <div className="flex items-start gap-3">
                             <Clock className="h-5 w-5 mt-0.5 shrink-0 text-primary" />
-                            <p className="text-sm md:text-base">{storeLocation.hours}</p>
+                            <p className="text-sm md:text-base">{location.hours}</p>
                         </div>
 
                         <div className="flex items-start gap-3">
                             <Phone className="h-5 w-5 mt-0.5 shrink-0 text-primary" />
                             <a
-                                href={`tel:${storeLocation.phone}`}
+                                href={`tel:${location.phone}`}
                                 className="text-sm md:text-base hover:text-primary transition-colors"
                             >
-                                {storeLocation.phone}
+                                {location.phone}
                             </a>
                         </div>
                         <a
 
-                            href={`https://www.google.com/maps/dir/?api=1&destination=${storeLocation.latitude},${storeLocation.longitude}`}
+                            href={`https://www.google.com/maps/dir/?api=1&destination=${location.latitude},${location.longitude}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="mt-2 inline-block text-center bg-primary text-primary-foreground font-heading font-medium text-sm px-6 py-3 rounded-xl border-2 border-foreground hover:opacity-90 transition-opacity"

@@ -52,3 +52,7 @@ export async function clearAllPrimaryFlags() {
 export async function setLocationPrimary(id: string) {
   return prisma.location.update({ where: { id }, data: { isPrimary: true } });
 }
+
+export async function getPrimaryLocation() {
+  return prisma.location.findFirst({ where: { isPrimary: true } });
+}

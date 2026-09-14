@@ -15,7 +15,7 @@ import {
   Globe,
 } from "lucide-react";
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { storeLocation, socialLinks } from "@/lib/dummy-data";
+import type { SiteSettings, Location } from "@/generated/prisma/client";
 
 const navLinks = [
   { label: "Products", href: "/products" },
@@ -38,7 +38,7 @@ function useMounted() {
   );
 }
 
-export function Nav() {
+export function Nav({ settings, location }: { settings: SiteSettings | null; location: Location | null }) {
   const { theme, setTheme } = useTheme();
   const mounted = useMounted();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -64,14 +64,14 @@ export function Nav() {
               <MapPin className="h-3.5 w-3.5 shrink-0 text-primary" />
               <span>
                 Main Branch:{" "}
-                {storeLocation.address.split(",").at(-2)?.trim() ?? "Gazipur"}
+                {location?.address.split(",").at(-2)?.trim() ?? "Gazipur"}
               </span>
             </Link>
           </div>
 
           <div className="flex items-center gap-4">
             <a
-              href={socialLinks.facebookUrl}
+              href={settings?.facebookUrl || "#"}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Visit our Facebook page"
@@ -83,11 +83,11 @@ export function Nav() {
               </span>
             </a>
             <a
-              href={`tel:${storeLocation.phone}`}
+              href={`tel:${location?.phone}`}
               className="flex items-center gap-1.5 text-foreground/80 hover:text-primary transition-colors"
             >
               <Phone className="h-3.5 w-3.5 shrink-0 text-primary" />
-              <span className="hidden sm:inline">{storeLocation.phone}</span>
+              <span className="hidden sm:inline">{location?.phone}</span>
             </a>
             <a
               href="mailto:hello@nabannosweets.com"
