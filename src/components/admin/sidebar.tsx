@@ -16,7 +16,7 @@ export function AdminSidebar() {
     <aside className="hidden md:flex md:flex-col w-60 shrink-0 border-r border-border bg-card h-screen sticky top-0">
       <div className="h-16 flex items-center px-5 border-b border-border">
         <span className="font-heading font-bold text-lg text-primary">
-          Nabanno Admin
+          Nobanno Admin
         </span>
       </div>
 

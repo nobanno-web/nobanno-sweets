@@ -27,8 +27,7 @@ export default function LoginForm() {
       actionProps: {
         onSuccess: () => {
           toast.success("Logged in successfully");
-          router.refresh();
-          router.push("/dashboard");
+          window.location.href = "/dashboard";
         },
         onError: ({ error }) => {
           toast.error(error.serverError ?? "Invalid email or password");

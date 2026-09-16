@@ -6,7 +6,7 @@ import { getAllProducts } from "@/features/products/services/product.service";
 export const metadata: Metadata = {
   title: "Menu",
   description:
-    "Full menu of handcrafted Bengali sweets and snacks at Nabanno Sweets, Gazipur — prices and descriptions for every item.",
+    "Full menu of handcrafted Bengali sweets and snacks at Nobanno Sweets, Gazipur — prices and descriptions for every item.",
 };
 
 export default async function MenuPage() {

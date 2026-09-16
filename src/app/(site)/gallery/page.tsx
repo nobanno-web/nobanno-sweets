@@ -6,7 +6,7 @@ import { getAllGalleryImages } from "@/features/gallery/services/gallery.service
 export const metadata: Metadata = {
   title: "Gallery",
   description:
-    "A look inside Nabanno Sweets, Gazipur — our shop, our kitchen, and the sweets we make fresh every day.",
+    "A look inside Nobanno Sweets, Gazipur — our shop, our kitchen, and the sweets we make fresh every day.",
 };
 
 export default async function GalleryPage() {

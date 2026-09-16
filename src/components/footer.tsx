@@ -25,10 +25,11 @@ export function Footer({
         <div>
           <Image
             src="/logo-stacked.png"
-            alt="Nabanno Sweets"
+            alt="Nobanno Sweets"
             width={110}
             height={110}
             className="mb-4"
+            unoptimized
           />
           <p className="text-background/70 text-sm max-w-xs leading-relaxed">
             Traditional Bengali mishti and snacks, handcrafted fresh every
@@ -120,11 +121,9 @@ export function Footer({
 
       <div className="border-t border-background/20">
         <div className="mx-auto max-w-6xl px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-background/50 text-xs">
-          <span>© {new Date().getFullYear()} Nabanno Sweets. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} Nobanno Sweets. All rights reserved.</span>
           <a
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="mailto:tonoy.tech@gmail.com"
             className="hover:text-background/80 transition-colors"
           >
             Built by Shafiul Anam

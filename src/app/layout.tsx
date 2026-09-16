@@ -20,11 +20,11 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Nabanno Sweets | Traditional Bengali Mishti in Gazipur",
-    template: "%s | Nabanno Sweets",
+    default: "Nobanno Sweets | Traditional Bengali Mishti in Gazipur",
+    template: "%s | Nobanno Sweets",
   },
   description:
-    "Handcrafted Bengali sweets made fresh daily — sandesh, rosogolla, and traditional mishti at Nabanno Sweets.",
+    "Handcrafted Bengali sweets made fresh daily — sandesh, rosogolla, and traditional mishti at Nobanno Sweets.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

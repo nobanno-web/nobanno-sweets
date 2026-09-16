@@ -7,7 +7,7 @@ import { getSettings } from "@/features/site-settings/services/site-settings.ser
 export const metadata: Metadata = {
   title: "Our Story",
   description:
-    "The story behind Nabanno Sweets, Gazipur — from a family kitchen to a shop Kolkata-style Bengali sweets are made fresh, every day.",
+    "The story behind Nobanno Sweets, Gazipur — from a family kitchen to a shop Kolkata-style Bengali sweets are made fresh, every day.",
 };
 
 export default async function StoryPage() {

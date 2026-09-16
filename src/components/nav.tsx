@@ -102,9 +102,10 @@ export function Nav({ settings, location }: { settings: SiteSettings | null; loc
           <Link href="/" className="flex items-center shrink-0">
             <Image
               src="/logo-horizontal.png"
-              alt="Nabanno Sweets"
+              alt="Nobanno Sweets"
               width={210}
               height={34}
+              unoptimized
               priority
             />
           </Link>

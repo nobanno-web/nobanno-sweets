@@ -11,11 +11,11 @@ async function main() {
   const passwordHash = await bcrypt.hash("ChangeMe123!", 10);
 
   await prisma.user.upsert({
-    where: { email: "admin@nabannosweets.com" },
+    where: { email: "admin@nobannosweets.com" },
     update: {},
     create: {
       name: "Admin",
-      email: "admin@nabannosweets.com",
+      email: "admin@nobannosweets.com",
       passwordHash,
       role: "ADMIN",
       mustChangePassword: true,
@@ -31,7 +31,7 @@ async function main() {
     },
   });
 
-  console.log("Seed complete. Admin login: admin@nabannosweets.com / ChangeMe123!");
+  console.log("Seed complete. Admin login: admin@nobannosweets.com / ChangeMe123!");
 }
 
 main()

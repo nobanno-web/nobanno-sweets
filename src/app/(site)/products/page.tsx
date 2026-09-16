@@ -6,7 +6,7 @@ import { getAllProducts } from "@/features/products/services/product.service";
 export const metadata: Metadata = {
   title: "Products",
   description:
-    "Browse our full range of handcrafted Bengali sweets and snacks at Nabanno Sweets, Gazipur.",
+    "Browse our full range of handcrafted Bengali sweets and snacks at Nobanno Sweets, Gazipur.",
 };
 
 export default async function ProductsPage() {

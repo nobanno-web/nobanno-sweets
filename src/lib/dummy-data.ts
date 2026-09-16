@@ -109,7 +109,7 @@ export const featuredProducts = products.filter((p) => p.isFeatured);
 
 export const storeLocation: StoreLocation = {
   id: "1",
-  name: "Nabanno Sweets",
+  name: "Nobanno Sweets",
   address: "Solingmor (Fulbaria Road), Mawna, Sreepur, Gazipur",
   phone: "01889983850",
   hours: "9:00 AM – 9:00 PM, Every Day",
@@ -121,7 +121,7 @@ export const storeLocation: StoreLocation = {
 export const welcomeModal: WelcomeModal = {
   enabled: true,
   imageUrl: "https://picsum.photos/seed/welcome/800/1000",
-  altText: "Nabanno Sweets festive announcement",
+  altText: "Nobanno Sweets festive announcement",
 };
 
 export const heroSlides: HeroSlide[] = [
@@ -158,13 +158,13 @@ export const shopStats: ShopStat[] = [
 
 export const socialLinks: SocialLinks = {
   facebookUrl: "https://www.facebook.com/nobannosweets",
-  instagramUrl: "https://instagram.com/nabannosweets",
-  youtubeUrl: "https://youtube.com/@nabannosweets",
+  instagramUrl: "https://instagram.com/nobannosweets",
+  youtubeUrl: "https://youtube.com/@nobannosweets",
 };
 
 export const galleryImages: GalleryImage[] = [
   { id: "1", imageUrl: "https://picsum.photos/seed/gallery-1/500/650", altText: "Fresh sandesh being shaped by hand" },
-  { id: "2", imageUrl: "https://picsum.photos/seed/gallery-2/500/500", altText: "Nabanno Sweets shop front" },
+  { id: "2", imageUrl: "https://picsum.photos/seed/gallery-2/500/500", altText: "Nobanno Sweets shop front" },
   { id: "3", imageUrl: "https://picsum.photos/seed/gallery-3/500/750", altText: "Trays of fresh rosogolla" },
   { id: "4", imageUrl: "https://picsum.photos/seed/gallery-4/500/550", altText: "Festive gift boxes ready for pickup" },
   { id: "5", imageUrl: "https://picsum.photos/seed/gallery-5/500/650", altText: "Sweet-making in the kitchen" },
@@ -177,7 +177,7 @@ export const galleryImages: GalleryImage[] = [
 
 export const owner: Owner = {
   name: "Owner's Name", // replace with real name
-  role: "Founder, Nabanno Sweets",
+  role: "Founder, Nobanno Sweets",
   photoUrl: "https://picsum.photos/seed/owner/500/600",
-  bio: "Growing up around his family's kitchen, [Owner] learned every recipe by hand before he ever thought of opening a shop. He started Nabanno Sweets with a simple goal — bring that same homemade quality to more people. Today he's still involved in the kitchen every single day.",
+  bio: "Growing up around his family's kitchen, [Owner] learned every recipe by hand before he ever thought of opening a shop. He started Nobanno Sweets with a simple goal — bring that same homemade quality to more people. Today he's still involved in the kitchen every single day.",
 };

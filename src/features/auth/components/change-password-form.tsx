@@ -2,6 +2,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useHookFormAction } from "@next-safe-action/adapter-react-hook-form/hooks";
 import { toast } from "sonner";
@@ -14,6 +15,7 @@ import { changePasswordAction } from "../actions/auth.action";
 
 export default function ChangePasswordForm() {
   const router = useRouter();
+  const { update } = useSession();
 
   const { form, action, handleSubmitWithAction } = useHookFormAction(
     changePasswordAction,
@@ -23,8 +25,9 @@ export default function ChangePasswordForm() {
         defaultValues: { newPassword: "" },
       },
       actionProps: {
-        onSuccess: () => {
+        onSuccess: async () => {
           toast.success("Password updated");
+          await update({ mustChangePassword: false });
           router.refresh();
           router.push("/dashboard");
         },

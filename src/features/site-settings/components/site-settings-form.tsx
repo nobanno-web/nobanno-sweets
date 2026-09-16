@@ -54,7 +54,7 @@ export function SiteSettingsForm({ settings }: { settings: SiteSettings | null }
         <div className="space-y-3">
           <div>
             <Label htmlFor="contactEmail">Contact Email</Label>
-            <Input id="contactEmail" type="email" placeholder="hello@nabannosweets.com" {...register("contactEmail")} className="mt-1.5" />
+            <Input id="contactEmail" type="email" placeholder="hello@nobannosweets.com" {...register("contactEmail")} className="mt-1.5" />
             {errors.contactEmail && <p className="text-sm text-destructive mt-1">{errors.contactEmail.message}</p>}
           </div>
           <div>
@@ -128,7 +128,7 @@ export function SiteSettingsForm({ settings }: { settings: SiteSettings | null }
           </div>
           <div>
             <Label htmlFor="ownerRole">Role</Label>
-            <Input id="ownerRole" placeholder="Founder, Nabanno Sweets" {...register("ownerRole")} className="mt-1.5" />
+            <Input id="ownerRole" placeholder="Founder, Nobanno Sweets" {...register("ownerRole")} className="mt-1.5" />
           </div>
         </div>
 

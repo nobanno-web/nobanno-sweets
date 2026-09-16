@@ -28,7 +28,7 @@ export function MobileSidebar() {
       <SheetContent side="left" className="w-64 p-0">
         <div className="h-16 flex items-center px-5 border-b border-border">
           <span className="font-heading font-bold text-lg text-primary">
-            Nabanno Admin
+            Nobanno Admin
           </span>
         </div>
         <nav className="py-4 px-3 space-y-1">
