@@ -8,27 +8,29 @@ export const authConfig = {
   pages: {
     signIn: "/login",
   },
-  providers: [], // intentionally empty — Credentials/Prisma lives only in auth.ts
+  providers: [],
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
-      const publicRoutes = ["/", "/login"];
-      const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
-      const isChangePasswordRoute = nextUrl.pathname === "/change-password";
+      const isProtectedRoute =
+        nextUrl.pathname === "/dashboard" ||
+        nextUrl.pathname.startsWith("/dashboard/") ||
+        nextUrl.pathname.startsWith("/admin") ||
+        nextUrl.pathname === "/change-password";
 
       if (nextUrl.pathname === "/login" && isLoggedIn) {
         return Response.redirect(new URL("/dashboard", nextUrl));
       }
 
-      if (isPublicRoute) {
-        return true;
+      if (!isProtectedRoute) {
+        return true; 
       }
 
       if (!isLoggedIn) {
         return false;
       }
 
-      if (auth.user.mustChangePassword && !isChangePasswordRoute) {
+      if (auth.user.mustChangePassword && nextUrl.pathname !== "/change-password") {
         return Response.redirect(new URL("/change-password", nextUrl));
       }
 
