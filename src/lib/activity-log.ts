@@ -1,12 +1,13 @@
 // src/lib/activity-log.ts
 import { prisma } from "@/lib/prisma";
+import type { Prisma } from "@/generated/prisma/client";
 
 type LogParams = {
   userId: string;
   action: string;
   targetType: string;
   targetId?: string;
-  metadata?: Record<string, unknown>;
+  metadata?: Prisma.InputJsonValue;
 };
 
 export async function logActivity({

@@ -9,6 +9,8 @@ import { getAllProducts } from "@/features/products/services/product.service";
 import { getPrimaryLocationInfo } from "@/features/locations/services/location.service";
 import { getAllShopStats } from "@/features/site-settings/services/shop-stat.service";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const [heroSlides, products, primaryLocation, shopStats] = await Promise.all([
     getAllHeroSlides(),

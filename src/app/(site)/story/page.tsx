@@ -10,6 +10,8 @@ export const metadata: Metadata = {
     "The story behind Nobanno Sweets, Gazipur — from a family kitchen to a shop Kolkata-style Bengali sweets are made fresh, every day.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function StoryPage() {
   const [blocks, settings] = await Promise.all([getAllStoryBlocks(), getSettings()]);
 

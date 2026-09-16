@@ -9,6 +9,8 @@ export const metadata: Metadata = {
     "Full menu of handcrafted Bengali sweets and snacks at Nobanno Sweets, Gazipur — prices and descriptions for every item.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function MenuPage() {
   const products = await getAllProducts();
 

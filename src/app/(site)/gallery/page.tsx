@@ -9,6 +9,8 @@ export const metadata: Metadata = {
     "A look inside Nobanno Sweets, Gazipur — our shop, our kitchen, and the sweets we make fresh every day.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function GalleryPage() {
   const images = await getAllGalleryImages();
 
