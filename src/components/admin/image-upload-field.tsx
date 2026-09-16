@@ -41,7 +41,7 @@ export function ImageUploadField({
     <div>
       {value ? (
         <div className="relative w-full aspect-video rounded-xl overflow-hidden border-2 border-foreground">
-          <Image src={value} alt="" fill className="object-cover" />
+          <Image src={value} alt="" fill sizes="(max-width: 640px) 90vw, 400px" className="object-cover" />
           <button
             type="button"
             onClick={() => onChange("")}

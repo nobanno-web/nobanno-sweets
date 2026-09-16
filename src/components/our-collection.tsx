@@ -1,3 +1,4 @@
+// src/components/our-collection.tsx
 "use client";
 
 import Link from "next/link";
@@ -10,6 +11,8 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
 } from "@/components/ui/carousel";
 import type { Product } from "@/generated/prisma/client";
 
@@ -27,7 +30,6 @@ export function OurCollection({ products }: { products: Product[] }) {
         transition={{ duration: 0.5, ease: "easeOut" }}
         className="mx-auto max-w-6xl px-4"
       >
-      <div className="mx-auto max-w-6xl px-4">
         <div className="text-center max-w-xl mx-auto mb-10 md:mb-14">
           <h2 className="font-heading font-bold text-3xl md:text-4xl mb-3">
             Our Collection
@@ -55,6 +57,7 @@ export function OurCollection({ products }: { products: Product[] }) {
                       src={product.imageUrl}
                       alt={product.name}
                       fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       className="object-cover"
                     />
                   </div>
@@ -67,16 +70,15 @@ export function OurCollection({ products }: { products: Product[] }) {
               </CarouselItem>
             ))}
           </CarouselContent>
+          <CarouselPrevious className="hidden md:flex" />
+          <CarouselNext className="hidden md:flex" />
         </Carousel>
 
         <div className="flex justify-center mt-10">
-          <Link href="/menu">
-            <Button variant="default">
-              All Products
-            </Button>
+          <Link href="/products">
+            <Button variant="default">All Products</Button>
           </Link>
         </div>
-      </div>
       </motion.div>
     </section>
   );

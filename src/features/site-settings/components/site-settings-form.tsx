@@ -31,6 +31,7 @@ export function SiteSettingsForm({ settings }: { settings: SiteSettings | null }
           ownerRole: settings?.ownerRole ?? "",
           ownerPhotoUrl: settings?.ownerPhotoUrl ?? "",
           ownerBio: settings?.ownerBio ?? "",
+          contactEmail: settings?.contactEmail ?? "",
         },
       },
       actionProps: {
@@ -51,6 +52,11 @@ export function SiteSettingsForm({ settings }: { settings: SiteSettings | null }
       <section>
         <h2 className="font-heading font-bold text-base mb-4">Social Links</h2>
         <div className="space-y-3">
+          <div>
+            <Label htmlFor="contactEmail">Contact Email</Label>
+            <Input id="contactEmail" type="email" placeholder="hello@nabannosweets.com" {...register("contactEmail")} className="mt-1.5" />
+            {errors.contactEmail && <p className="text-sm text-destructive mt-1">{errors.contactEmail.message}</p>}
+          </div>
           <div>
             <Label htmlFor="facebookUrl">Facebook URL</Label>
             <Input id="facebookUrl" placeholder="https://facebook.com/..." {...register("facebookUrl")} className="mt-1.5" />

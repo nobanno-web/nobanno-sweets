@@ -55,7 +55,7 @@ export function ProductsTable({ products }: { products: Product[] }) {
             <tr key={product.id} className="border-t border-border">
               <td className="px-4 py-3">
                 <div className="relative w-12 h-12 rounded-lg overflow-hidden">
-                  <Image src={product.imageUrl} alt={product.name} fill className="object-cover" />
+                  <Image src={product.imageUrl} alt={product.name} fill sizes="48px" className="object-cover" />
                 </div>
               </td>
               <td className="px-4 py-3 font-medium">{product.name}</td>

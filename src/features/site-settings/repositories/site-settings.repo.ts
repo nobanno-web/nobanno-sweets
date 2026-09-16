@@ -10,6 +10,7 @@ export async function updateSiteSettings(data: Partial<{
   facebookUrl: string;
   instagramUrl: string;
   youtubeUrl: string;
+  contactEmail: string;
   welcomeModalEnabled: boolean;
   welcomeModalImageUrl: string;
   welcomeModalAltText: string;

@@ -113,14 +113,12 @@ model ShopStat {
   order Int    @default(0)
 }
 
-// Single-row table: always exactly one record, managed via the
-// site-settings feature. Enforce "singleton" at the service layer
-// (findFirst / upsert against a known id), not via schema constraints.
 model SiteSettings {
   id                   String   @id @default(cuid())
   facebookUrl          String?
   instagramUrl         String?
   youtubeUrl           String?
+  contactEmail         String?
   welcomeModalEnabled  Boolean  @default(false)
   welcomeModalImageUrl String?
   welcomeModalAltText  String?

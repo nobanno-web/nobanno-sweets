@@ -6,6 +6,7 @@ export const updateSiteSettingsSchema = z.object({
   facebookUrl: optionalUrl,
   instagramUrl: optionalUrl,
   youtubeUrl: optionalUrl,
+  contactEmail: z.string().email().optional().or(z.literal("")),
   welcomeModalEnabled: z.boolean(),
   welcomeModalImageUrl: z.string().url().optional().or(z.literal("")),
   welcomeModalAltText: z.string().optional().or(z.literal("")),

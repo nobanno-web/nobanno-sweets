@@ -32,7 +32,7 @@ export function SortableGalleryTile({
       }}
       className="relative aspect-square rounded-xl overflow-hidden border-2 border-foreground group"
     >
-      <Image src={imageUrl} alt={altText} fill className="object-cover" />
+      <Image src={imageUrl} alt={altText} fill sizes="(max-width: 768px) 33vw, 20vw" className="object-cover" />
 
       <button
         {...attributes}

@@ -27,7 +27,7 @@ const navLinks = [
 ];
 
 function subscribeNoop() {
-  return () => {};
+  return () => { };
 }
 
 function useMounted() {
@@ -57,16 +57,12 @@ export function Nav({ settings, location }: { settings: SiteSettings | null; loc
       <div className="border-b border-border bg-muted/40">
         <div className="mx-auto max-w-6xl flex items-center justify-between px-4 py-2 text-xs md:text-sm">
           <div className="flex items-center gap-3">
-            <Link
-              href="/#visit-us"
+            <a href="/#visit-us"
               className="flex items-center gap-1.5 text-foreground/80 hover:text-primary transition-colors"
             >
               <MapPin className="h-3.5 w-3.5 shrink-0 text-primary" />
-              <span>
-                Main Branch:{" "}
-                {location?.address.split(",").at(-2)?.trim() ?? "Gazipur"}
-              </span>
-            </Link>
+              <span>Main Branch: {location?.name ?? "Gazipur"}</span>
+            </a>
           </div>
 
           <div className="flex items-center gap-4">
@@ -79,7 +75,7 @@ export function Nav({ settings, location }: { settings: SiteSettings | null; loc
             >
               <Globe className="h-3.5 w-3.5 shrink-0 text-primary" />
               <span className="hidden sm:inline">
-                facebook.com/nobannosweets
+                {settings?.facebookUrl?.replace(/^https?:\/\/(www\.)?/, "") || "facebook.com"}
               </span>
             </a>
             <a
@@ -90,11 +86,11 @@ export function Nav({ settings, location }: { settings: SiteSettings | null; loc
               <span className="hidden sm:inline">{location?.phone}</span>
             </a>
             <a
-              href="mailto:hello@nabannosweets.com"
+              href={`mailto:${settings?.contactEmail ?? ""}`}
               className="flex items-center gap-1.5 text-foreground/80 hover:text-primary transition-colors"
             >
               <Mail className="h-3.5 w-3.5 shrink-0 text-primary" />
-              <span className="hidden sm:inline">nabannosweets@gmail.com</span>
+              <span className="hidden sm:inline">{settings?.contactEmail}</span>
             </a>
           </div>
         </div>
@@ -108,7 +104,7 @@ export function Nav({ settings, location }: { settings: SiteSettings | null; loc
               src="/logo-horizontal.png"
               alt="Nabanno Sweets"
               width={210}
-              height={34}              
+              height={34}
               priority
             />
           </Link>

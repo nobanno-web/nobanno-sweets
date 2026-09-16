@@ -9,6 +9,7 @@ type SettingsInput = {
   facebookUrl?: string;
   instagramUrl?: string;
   youtubeUrl?: string;
+  contactEmail?: string;
   welcomeModalEnabled: boolean;
   welcomeModalImageUrl?: string;
   welcomeModalAltText?: string;

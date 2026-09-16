@@ -32,7 +32,7 @@ export default async function StoryPage() {
           }`}
         >
           <div className="relative w-full md:w-1/2 aspect-[4/3] rounded-2xl overflow-hidden border-2 border-foreground shrink-0">
-            <Image src={block.imageUrl} alt={block.heading} fill className="object-cover" />
+            <Image src={block.imageUrl} alt={block.heading} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
           </div>
 
           <div className="w-full md:w-1/2 text-center md:text-left">
@@ -52,7 +52,7 @@ export default async function StoryPage() {
       {settings?.ownerName && settings?.ownerPhotoUrl && (
         <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12">
           <div className="relative w-full md:w-1/2 aspect-[4/3] rounded-2xl overflow-hidden border-2 border-foreground shrink-0">
-            <Image src={settings.ownerPhotoUrl} alt={settings.ownerName} fill className="object-cover object-top" />
+            <Image src={settings.ownerPhotoUrl} alt={settings.ownerName} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover object-top" />
           </div>
 
           <div className="w-full md:w-1/2 text-center md:text-left">

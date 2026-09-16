@@ -49,6 +49,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
             src={slide.imageUrl}
             alt={slide.headline}
             fill
+            sizes="100vw"
             priority={index === 0}
             className="object-cover"
           />
