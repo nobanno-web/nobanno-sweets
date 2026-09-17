@@ -65,7 +65,7 @@ export function ProductsGrid({ products }: { products: Product[] }) {
 
       {paginated.length === 0 ? (
         <p className="text-center text-muted-foreground py-12">
-          No products found for &quot;{query}&quot;.
+          No products found for 
         </p>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">

@@ -29,9 +29,7 @@ export function StoryTeaser({ stats }: { stats: ShopStat[] }) {
             Our Story
           </h2>
           <p className="text-secondary-foreground/90 text-sm md:text-base mb-6 max-w-xl mx-auto md:mx-0">
-            What started as a small family kitchen has grown into a shop
-            Kolkata comes to for festival sweets and everyday treats — made
-            the same way, every single day.
+            Nobanno Sweets exists because we love what Bengali mishti represents — tradition, care, and the joy of sharing something made well. Every sandesh, every rosogolla, is made fresh with the same devotion to getting it right, every single day.
           </p>
           <Link href="/story">
             <Button variant="default">
