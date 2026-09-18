@@ -29,9 +29,8 @@ export default async function StoryPage() {
       {blocks.map((block, i) => (
         <div
           key={block.id}
-          className={`flex flex-col items-center gap-8 md:gap-12 md:flex-row${
-            i % 2 === 1 ? "-reverse" : ""
-          }`}
+          className={`flex flex-col items-center gap-8 md:gap-12 ${i % 2 === 1 ? "md:flex-row-reverse" : "md:flex-row"
+            }`}
         >
           <div className="relative w-full md:w-1/2 aspect-[4/3] rounded-2xl overflow-hidden border-2 border-foreground shrink-0">
             <Image src={block.imageUrl} alt={block.heading} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
