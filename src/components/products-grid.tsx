@@ -6,40 +6,17 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Search, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
 import { CallToOrder } from "@/components/call-to-order";
 import type { Product } from "@/generated/prisma/client";
 
-const PER_PAGE = 6;
-
 export function ProductsGrid({ products }: { products: Product[] }) {
   const [query, setQuery] = useState("");
-  const [page, setPage] = useState(1);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return products;
     return products.filter((p) => p.name.toLowerCase().includes(q));
-  }, [query]);
-
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
-  const currentPage = Math.min(page, totalPages);
-  const paginated = filtered.slice(
-    (currentPage - 1) * PER_PAGE,
-    currentPage * PER_PAGE
-  );
-
-  function handleSearchChange(value: string) {
-    setQuery(value);
-    setPage(1);
-  }
+  }, [query, products]);
 
   return (
     <div>
@@ -49,12 +26,12 @@ export function ProductsGrid({ products }: { products: Product[] }) {
           type="text"
           placeholder="Search sweets, snacks..."
           value={query}
-          onChange={(e) => handleSearchChange(e.target.value)}
+          onChange={(e) => setQuery(e.target.value)}
           className="pl-11 pr-10 h-12 rounded-full border-2 border-foreground bg-card shadow-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary text-sm md:text-base"
         />
         {query && (
           <button
-            onClick={() => handleSearchChange("")}
+            onClick={() => setQuery("")}
             aria-label="Clear search"
             className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
           >
@@ -63,16 +40,17 @@ export function ProductsGrid({ products }: { products: Product[] }) {
         )}
       </div>
 
-      {paginated.length === 0 ? (
+      {filtered.length === 0 ? (
         <p className="text-center text-muted-foreground py-12">
-          No products found for 
+          No products found for &ldquo;{query}&rdquo;
         </p>
       ) : (
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
-          {paginated.map((product) => (
+          {filtered.map((product) => (
             <Link
               key={product.id}
               href="/menu"
+              aria-label={`View ${product.name} price`}
               className="group relative aspect-[3/4] rounded-2xl overflow-hidden border-2 border-foreground"
             >
               <Image
@@ -105,51 +83,6 @@ export function ProductsGrid({ products }: { products: Product[] }) {
             </Link>
           ))}
         </div>
-      )}
-
-      {totalPages > 1 && (
-        <Pagination className="mt-10">
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setPage((p) => Math.max(1, p - 1));
-                }}
-                className={currentPage === 1 ? "pointer-events-none opacity-40" : ""}
-              />
-            </PaginationItem>
-
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-              <PaginationItem key={p}>
-                <PaginationLink
-                  href="#"
-                  isActive={p === currentPage}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setPage(p);
-                  }}
-                >
-                  {p}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
-
-            <PaginationItem>
-              <PaginationNext
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setPage((p) => Math.min(totalPages, p + 1));
-                }}
-                className={
-                  currentPage === totalPages ? "pointer-events-none opacity-40" : ""
-                }
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
       )}
 
       <CallToOrder />

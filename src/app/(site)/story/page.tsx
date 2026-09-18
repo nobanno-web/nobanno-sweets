@@ -6,8 +6,17 @@ import { getSettings } from "@/features/site-settings/services/site-settings.ser
 
 export const metadata: Metadata = {
   title: "Our Story",
-  description:
-    "The story behind Nobanno Sweets, Gazipur — from a family kitchen to a shop Kolkata-style Bengali sweets are made fresh, every day.",
+  description: "The story behind Nobanno Sweets, Gazipur — from a family kitchen to a shop where traditional Bengali sweets are made fresh, every day.",
+  alternates: { canonical: "/story" },
+  openGraph: {
+    title: "Our Story | Nobanno Sweets",
+    description: "The story behind Nobanno Sweets, Gazipur.",
+    url: "https://nobannosweets.com/story",
+    siteName: "Nobanno Sweets",
+    type: "website",
+    locale: "en_BD",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Nobanno Sweets" }],
+  },
 };
 
 export const dynamic = "force-dynamic";

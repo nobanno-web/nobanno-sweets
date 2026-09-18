@@ -4,9 +4,18 @@ import { ProductsGrid } from "@/components/products-grid";
 import { getAllProducts } from "@/features/products/services/product.service";
 
 export const metadata: Metadata = {
-  title: "Products",
-  description:
-    "Browse our full range of handcrafted Bengali sweets and snacks at Nobanno Sweets, Gazipur.",
+  title: "Our Products",
+  description: "Browse our full range of handcrafted Bengali sweets and snacks — sandesh, rosogolla, and seasonal specialties made fresh in Gazipur.",
+  alternates: { canonical: "/products" },
+  openGraph: {
+    title: "Our Products | Nobanno Sweets",
+    description: "Browse our full range of handcrafted Bengali sweets and snacks, made fresh in Gazipur.",
+    url: "https://nobannosweets.com/products",
+    siteName: "Nobanno Sweets",
+    type: "website",
+    locale: "en_BD",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Nobanno Sweets" }],
+  },
 };
 
 export const dynamic = "force-dynamic";

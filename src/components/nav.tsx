@@ -108,7 +108,7 @@ export function Nav({ settings, location }: { settings: SiteSettings | null; loc
               height={57}
               unoptimized
               priority
-              className="w-[210px] h-[34px] object-contain"
+              className="w-[210px] h-[57px] object-contain"
             />
           </Link>
 

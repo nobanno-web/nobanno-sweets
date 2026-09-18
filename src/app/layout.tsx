@@ -20,14 +20,25 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://nobannosweets.com"),
   title: {
-    default: "Nobanno Sweets | Traditional Bengali Mishti in Gazipur",
+    default: "Nobanno Sweets",
     template: "%s | Nobanno Sweets",
   },
-  description:
-    "Handcrafted Bengali sweets made fresh daily — sandesh, rosogolla, and traditional mishti at Nobanno Sweets.",
+  openGraph: {
+    siteName: "Nobanno Sweets",
+    type: "website",
+    locale: "en_BD",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Nobanno Sweets — Traditional Bengali Sweets, Gazipur",
+      },
+    ],
+  },
 };
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html

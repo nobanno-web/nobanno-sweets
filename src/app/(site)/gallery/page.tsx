@@ -5,8 +5,17 @@ import { getAllGalleryImages } from "@/features/gallery/services/gallery.service
 
 export const metadata: Metadata = {
   title: "Gallery",
-  description:
-    "A look inside Nobanno Sweets, Gazipur — our shop, our kitchen, and the sweets we make fresh every day.",
+  description: "A look inside Nobanno Sweets — our shop, our sweets, and the moments we're proud of, Gazipur.",
+  alternates: { canonical: "/gallery" },
+  openGraph: {
+    title: "Gallery | Nobanno Sweets",
+    description: "A look inside Nobanno Sweets — our shop, our sweets, and the moments we're proud of.",
+    url: "https://nobannosweets.com/gallery",
+    siteName: "Nobanno Sweets",
+    type: "website",
+    locale: "en_BD",
+    images: [{ url: "/og-image.jpg", width: 1200, height: 630, alt: "Nobanno Sweets" }],
+  },
 };
 
 export const dynamic = "force-dynamic";
@@ -29,4 +38,4 @@ export default async function GalleryPage() {
       <GalleryGrid images={images} />
     </section>
   );
-}
+} 
