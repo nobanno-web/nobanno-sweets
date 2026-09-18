@@ -26,10 +26,10 @@ export function Footer({
           <Image
             src="/logo-stacked.png"
             alt="Nobanno Sweets"
-            width={110}
-            height={110}
-            className="mb-4"
+            width={140}
+            height={95}
             unoptimized
+            className="mb-4 w-[140px] h-[95px] object-contain"
           />
           <p className="text-background/70 text-sm max-w-xs leading-relaxed">
             Traditional Bengali mishti and snacks, handcrafted fresh every
@@ -64,7 +64,7 @@ export function Footer({
               <p className="text-background/70 text-sm mb-2 leading-relaxed">
                 {location.address}
               </p>
-              <a 
+              <a
                 href={`tel:${location.phone}`}
                 className="text-background/70 text-sm hover:text-background transition-colors block mb-1"
               >
@@ -94,7 +94,7 @@ export function Footer({
               </a>
             )}
             {settings?.instagramUrl && (
-              <a 
+              <a
                 href={settings.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -105,7 +105,7 @@ export function Footer({
               </a>
             )}
             {settings?.youtubeUrl && (
-              <a 
+              <a
                 href={settings.youtubeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -126,7 +126,7 @@ export function Footer({
             href="mailto:tonoy.tech@gmail.com"
             className="hover:text-background/80 transition-colors"
           >
-            Built by Shafiul Anam
+            Developed by Shafiul Anam
           </a>
         </div>
       </div>

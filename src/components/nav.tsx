@@ -98,15 +98,17 @@ export function Nav({ settings, location }: { settings: SiteSettings | null; loc
 
       {/* Main nav */}
       <div className="border-b border-border bg-background/95 backdrop-blur">
-        <div className="mx-auto max-w-6xl flex h-14 items-center justify-between gap-4 px-4">
+        <div className="mx-auto max-w-6xl flex h-16 items-center justify-between gap-4 px-4">
           <Link href="/" className="flex items-center shrink-0">
+            
             <Image
               src="/logo-horizontal.png"
               alt="Nobanno Sweets"
               width={210}
-              height={34}
+              height={57}
               unoptimized
               priority
+              className="w-[210px] h-[34px] object-contain"
             />
           </Link>
 
