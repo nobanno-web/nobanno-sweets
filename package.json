@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint", 
+    "lint": "eslint",
     "postinstall": "prisma generate"
   },
   "dependencies": {
@@ -20,6 +20,7 @@
     "@next-safe-action/adapter-react-hook-form": "^2.1.0",
     "@prisma/adapter-pg": "^7.10.0",
     "@prisma/client": "^7.10.0",
+    "@vercel/analytics": "^2.0.1",
     "bcryptjs": "^3.0.3",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.2.6",

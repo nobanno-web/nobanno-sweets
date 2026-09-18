@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SessionProvider } from "@/components/session-provider";
+import { Analytics } from "@vercel/analytics/next";
 
 const playfair = Playfair_Display({
   variable: "--font-heading",
@@ -36,12 +37,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     >
       <body className="min-h-full flex flex-col font-body">
         <SessionProvider>
-<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-          <Toaster richColors position="top-center" />
-        </ThemeProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+
+            {children}
+            <Toaster richColors position="top-center" />
+          </ThemeProvider>
         </SessionProvider>
-        
+        <Analytics />
       </body>
     </html>
   );
