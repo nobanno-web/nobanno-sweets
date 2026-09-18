@@ -12,24 +12,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
 import { CallToOrder } from "@/components/call-to-order";
 import type { Product } from "@/generated/prisma/client";
 
-const PER_PAGE = 6;
 type SortOption = "default" | "price-asc" | "price-desc";
 
 export function MenuList({ products }: { products: Product[] }) {
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState<SortOption>("default");
-  const [page, setPage] = useState(1);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -43,23 +33,6 @@ export function MenuList({ products }: { products: Product[] }) {
     return list;
   }, [products, query, sort]);
 
-  const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
-  const currentPage = Math.min(page, totalPages);
-  const paginated = filtered.slice(
-    (currentPage - 1) * PER_PAGE,
-    currentPage * PER_PAGE
-  );
-
-  function handleSearchChange(value: string) {
-    setQuery(value);
-    setPage(1);
-  }
-
-  function handleSortChange(value: SortOption) {
-    setSort(value);
-    setPage(1);
-  }
-
   return (
     <div>
       <div className="flex flex-col sm:flex-row gap-3 mb-8">
@@ -69,12 +42,12 @@ export function MenuList({ products }: { products: Product[] }) {
             type="text"
             placeholder="Search menu..."
             value={query}
-            onChange={(e) => handleSearchChange(e.target.value)}
+            onChange={(e) => setQuery(e.target.value)}
             className="pl-11 pr-10 h-12 rounded-full border-2 border-foreground bg-card shadow-sm focus-visible:ring-2 focus-visible:ring-primary focus-visible:border-primary"
           />
           {query && (
             <button
-              onClick={() => handleSearchChange("")}
+              onClick={() => setQuery("")}
               aria-label="Clear search"
               className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
             >
@@ -83,7 +56,7 @@ export function MenuList({ products }: { products: Product[] }) {
           )}
         </div>
 
-        <Select value={sort} onValueChange={(v) => handleSortChange(v as SortOption)}>
+        <Select value={sort} onValueChange={(v) => setSort(v as SortOption)}>
           <SelectTrigger className="h-12 rounded-full border-2 border-foreground bg-card sm:w-52 shadow-sm">
             <ArrowUpDown className="h-4 w-4 text-primary mr-1" />
             <SelectValue placeholder="Sort by" />
@@ -96,7 +69,7 @@ export function MenuList({ products }: { products: Product[] }) {
         </Select>
       </div>
 
-      {paginated.length === 0 ? (
+      {filtered.length === 0 ? (
         <p className="text-center text-muted-foreground py-12">
           {products.length === 0
             ? "Menu items coming soon."
@@ -104,7 +77,7 @@ export function MenuList({ products }: { products: Product[] }) {
         </p>
       ) : (
         <div className="border-t border-border">
-          {paginated.map((product) => (
+          {filtered.map((product) => (
             <div
               key={product.id}
               className="flex items-center gap-4 py-4 border-b border-border"
@@ -141,51 +114,6 @@ export function MenuList({ products }: { products: Product[] }) {
             </div>
           ))}
         </div>
-      )}
-
-      {totalPages > 1 && (
-        <Pagination className="mt-10">
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setPage((p) => Math.max(1, p - 1));
-                }}
-                className={currentPage === 1 ? "pointer-events-none opacity-40" : ""}
-              />
-            </PaginationItem>
-
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
-              <PaginationItem key={p}>
-                <PaginationLink
-                  href="#"
-                  isActive={p === currentPage}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setPage(p);
-                  }}
-                >
-                  {p}
-                </PaginationLink>
-              </PaginationItem>
-            ))}
-
-            <PaginationItem>
-              <PaginationNext
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setPage((p) => Math.min(totalPages, p + 1));
-                }}
-                className={
-                  currentPage === totalPages ? "pointer-events-none opacity-40" : ""
-                }
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
       )}
 
       <CallToOrder />

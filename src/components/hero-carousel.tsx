@@ -4,9 +4,16 @@
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Archivo } from "next/font/google";
 import { AnimatePresence, motion } from "motion/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { HeroSlide } from "@/generated/prisma/client";
+
+const archivo = Archivo({
+  subsets: ["latin"],
+  weight: ["400", "800"],
+  display: "swap",
+});
 
 const AUTOPLAY_MS = 5000;
 
@@ -61,17 +68,22 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.15 }}
-                className="max-w-lg text-white"
+                className="max-w-lg"
               >
-                <h1 className="font-heading font-bold text-3xl md:text-5xl leading-tight mb-3">
+                <h1
+                  className={`${archivo.className} font-extrabold text-4xl md:text-6xl lg:text-7xl leading-tight mb-4 text-white`}
+                >
                   {slide.headline}
                 </h1>
-                <p className="text-sm md:text-lg text-white/90 mb-6">
+                <p
+                  className={`${archivo.className} font-normal text-base md:text-xl mb-8 text-white/60`}
+                >
                   {slide.subtext}
                 </p>
                 <Link
                   href={slide.ctaHref}
-                  className="inline-block bg-primary text-primary-foreground font-heading font-medium text-sm px-6 py-3 rounded-xl border-2 border-white hover:opacity-90 transition-opacity"
+                  className={`${archivo.className} inline-block font-extrabold text-base md:text-lg whitespace-nowrap cursor-pointer no-underline rounded-none border border-transparent bg-[#7A2E8E] text-white hover:bg-[#621574] active:bg-[#4a0d5a] transition-colors`}
+                  style={{ padding: "14px 32px" }}
                 >
                   {slide.ctaLabel}
                 </Link>
@@ -104,9 +116,8 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
             key={s.id}
             aria-label={`Go to slide ${i + 1}`}
             onClick={() => setIndex(i)}
-            className={`h-2 rounded-full border border-white/70 transition-all ${
-              i === index ? "w-6 bg-white" : "w-2 bg-white/40"
-            }`}
+            className={`h-2 rounded-full border border-white/70 transition-all ${i === index ? "w-6 bg-white" : "w-2 bg-white/40"
+              }`}
           />
         ))}
       </div>

@@ -12,8 +12,8 @@ import {
   MapPin,
   Menu,
   X,
-  Globe,
 } from "lucide-react";
+import { SiFacebook } from "react-icons/si";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import type { SiteSettings, Location } from "@/generated/prisma/client";
 
@@ -60,6 +60,7 @@ export function Nav({ settings, location }: { settings: SiteSettings | null; loc
             <a href="/#visit-us"
               className="flex items-center gap-1.5 text-foreground/80 hover:text-primary transition-colors"
             >
+              
               <MapPin className="h-3.5 w-3.5 shrink-0 text-primary" />
               <span>Main Branch: {location?.name ?? "Gazipur"}</span>
             </a>
@@ -73,10 +74,8 @@ export function Nav({ settings, location }: { settings: SiteSettings | null; loc
               aria-label="Visit our Facebook page"
               className="flex items-center gap-1.5 text-foreground/80 hover:text-primary transition-colors"
             >
-              <Globe className="h-3.5 w-3.5 shrink-0 text-primary" />
-              <span className="hidden sm:inline">
-                {settings?.facebookUrl?.replace(/^https?:\/\/(www\.)?/, "") || "facebook.com"}
-              </span>
+              <SiFacebook className="h-3.5 w-3.5 shrink-0 text-primary" />
+              <span className="hidden sm:inline">Facebook</span>
             </a>
             <a
               href={`tel:${location?.phone}`}
@@ -100,7 +99,6 @@ export function Nav({ settings, location }: { settings: SiteSettings | null; loc
       <div className="border-b border-border bg-background/95 backdrop-blur">
         <div className="mx-auto max-w-6xl flex h-16 items-center justify-between gap-4 px-4">
           <Link href="/" className="flex items-center shrink-0">
-            
             <Image
               src="/logo-horizontal.png"
               alt="Nobanno Sweets"
