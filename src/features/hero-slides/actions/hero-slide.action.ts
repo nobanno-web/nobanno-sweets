@@ -18,7 +18,10 @@ import {
   reorderHeroSlides,
 } from "@/features/hero-slides/services/hero-slide.service";
 
+
+
 async function requireSession() {
+ 
   const session = await auth();
   if (!session?.user) {
     throw new AppError("UNAUTHORIZED", "Not authenticated", 401);

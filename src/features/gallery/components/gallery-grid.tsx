@@ -1,7 +1,7 @@
 // src/features/gallery/components/gallery-grid.tsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
@@ -31,6 +31,11 @@ export function GalleryGrid({ images }: { images: GalleryImage[] }) {
   const canReorder = role ? can(role, "content:update") : false;
 
   const [items, setItems] = useState(images);
+
+  useEffect(() => {
+    setItems(images);
+  }, [images]);
+
   const sensors = useSensors(useSensor(PointerSensor));
   const router = useRouter();
 

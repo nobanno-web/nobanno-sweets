@@ -54,7 +54,7 @@ export function Nav({ settings, location }: { settings: SiteSettings | null; loc
   return (
     <header className="sticky top-0 z-50 bg-background">
       {/* Top utility bar */}
-      <div className="border-b border-border bg-muted/40">
+      <div className="border-b border-border bg-muted/40 ">
         <div className="mx-auto max-w-6xl flex items-center justify-between px-4 py-2 text-xs md:text-sm">
           <div className="flex items-center gap-3">
             <a href="/#visit-us"

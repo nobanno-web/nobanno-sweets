@@ -1,7 +1,7 @@
 // src/features/hero-slides/components/hero-slides-list.tsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
@@ -29,6 +29,11 @@ export function HeroSlidesList({ slides }: { slides: HeroSlide[] }) {
   const router = useRouter();
 
   const [items, setItems] = useState(slides);
+
+  useEffect(() => {
+    setItems(slides);
+  }, [slides]);
+
   const sensors = useSensors(useSensor(PointerSensor));
 
   const deleteAction = useAction(deleteHeroSlideAction, {

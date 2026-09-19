@@ -1,7 +1,7 @@
 // src/features/story/components/story-blocks-list.tsx
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
@@ -28,6 +28,11 @@ export function StoryBlocksList({ blocks }: { blocks: StoryBlock[] }) {
   const canDelete = role ? can(role, "content:delete") : false;
 
   const [items, setItems] = useState(blocks);
+
+  useEffect(() => {
+    setItems(blocks);
+  }, [blocks]);
+
   const sensors = useSensors(useSensor(PointerSensor));
 
   const deleteAction = useAction(deleteStoryBlockAction, {
