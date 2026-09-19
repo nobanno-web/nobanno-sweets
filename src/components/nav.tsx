@@ -60,7 +60,7 @@ export function Nav({ settings, location }: { settings: SiteSettings | null; loc
             <a href="/#visit-us"
               className="flex items-center gap-1.5 text-foreground/80 hover:text-primary transition-colors"
             >
-              
+
               <MapPin className="h-3.5 w-3.5 shrink-0 text-primary" />
               <span>Main Branch: {location?.name ?? "Gazipur"}</span>
             </a>
@@ -111,15 +111,25 @@ export function Nav({ settings, location }: { settings: SiteSettings | null; loc
           </Link>
 
           <nav className="hidden md:flex items-center gap-5 font-heading text-md">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-foreground/80 hover:text-primary transition-colors"
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) =>
+              link.href.startsWith("/#") ? (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  className="text-foreground/80 hover:text-primary transition-colors"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="text-foreground/80 hover:text-primary transition-colors"
+                >
+                  {link.label}
+                </Link>
+              )
+            )}
           </nav>
 
           <div className="flex items-center gap-1 shrink-0">
@@ -157,13 +167,23 @@ export function Nav({ settings, location }: { settings: SiteSettings | null; loc
           <ul className="mx-auto max-w-6xl px-4 py-3 flex flex-col gap-1 font-heading text-sm">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <Link
-                  href={link.href}
-                  onClick={() => setMobileOpen(false)}
-                  className="block py-2.5 text-foreground/80 hover:text-primary transition-colors"
-                >
-                  {link.label}
-                </Link>
+                {link.href.startsWith("/#") ? (
+                  <a
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="block py-2.5 text-foreground/80 hover:text-primary transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    href={link.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="block py-2.5 text-foreground/80 hover:text-primary transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
